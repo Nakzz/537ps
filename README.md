@@ -26,17 +26,17 @@ The UNIX manual is organized into many sections. You will be mainly interested i
 
 Another function in Section 3 that will be useful for this assignment is the C library function that handles command-line argument parsing. The man page for that function is found by typing:
 
-   man 3 getopt
+    man 3 getopt
    
 Note that you want to make sure that you get the getopt from Section 3, as the getopt in Section 1 is a command, not a library (and not what you need). The cool part about the getopt manual page is that there is an "EXAMPLE" section that shows you how to use it. This example will help you to get started.
 You will need to be able to read the contents of a Linux directory (in this case, /proc. For this purpose, you will use the readdir library function. The man page for that function is found by typing:
 
-   man 3 readdir
+    man 3 readdir
    
 Here, the "3" is also essential, or you will get the man page for a lower-level function that is much harder to use. There are a lot of examples of code on the Web showing you how to use readdir. Here is one such example provided by IBM.
 There is another, less well-known section of the manual, which will be critical for this assignment. You will need to understand the format of the /proc file system (sometimes called the procfs), and for that use, you would type:
 
-   man 5 proc
+    man 5 proc
    
 You can also learn about /proc from Web sources such as this guide from Red Hat: Appendix E. The proc File System. And here is a nice sample program that opens a directory and reads the directory entries.
 More details about the online manual will be given in Discussion Section.
