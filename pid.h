@@ -8,24 +8,26 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-class PID_Service{
-	private:
-		bool _pid_exists(int pid);
+typedef struct{
+		int pid;
 		bool flag_p;
 		bool flag_s;
 		bool flag_S;
 		bool flag_U;
 		bool flag_v;
 		bool flag_c;
-		char* get_flag_p();
-		char* get_flag_s();
-		char* get_flag_S();
+	} pid; 
+		
+		pid* pid_new(int pid);
+		char* get_flag_p(const struct pid* p);
+		char* get_flag_s(const struct pid* p);
+		char* get_flag_S(const struct pid* p);
 		char* get_flag_U();
 		char* get_flag_v();
 		char* get_flag_c();
 	
-	public:
-		PID_Service(int pid);
+			
+		bool _pid_exists(int pid);
 		void set_flag_p(bool state);
 		void set_flag_s(bool state);
 		void set_flag_S(bool state);
