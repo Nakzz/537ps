@@ -1,10 +1,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Title:		537ps
-// Filename:		ps.h
+// Filename:	pid.h
 //                  
 // Course:		cs537, Fall 2020
-// Authors:		Ajmain Naqqab, Devanshu Mantri
+// Authors:		Ajmain Naqib, Devanshu Mantri
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -23,15 +23,15 @@ typedef struct pid{
 		bool flag_c;
 	}; 
 		
-	struct pid * create_pid(int id);	// constructor
-	char* get_flag_p(struct pid p);
-	char* get_flag_s(struct pid p);
-	char* get_flag_S(struct pid p);
-	char* get_flag_U(struct pid p);
-	char* get_flag_v(struct pid p);
-	char* get_flag_c(struct pid p);
-	void printPID(struct pid p);
+struct pid * create_pid(int id);	// constructor
+char* get_flag_p(struct pid p);
+char* get_flag_s(struct pid p);
+char* get_flag_S(struct pid p);
+char* get_flag_U(struct pid p);
+char* get_flag_v(struct pid p);
+char* get_flag_c(struct pid p);
+void printPID(struct pid p);
 
-	void freePID(struct pid list[]);	//destructor
-		
-	int _pid_exists(int pid);	
+void freePID(struct pid list[]);	//destructor
+	
+int _pid_exists(int pid);
