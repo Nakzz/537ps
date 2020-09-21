@@ -13,7 +13,8 @@ int main(int argc, char** argv){
 
 	//
 	//create pid's for all the PID and change flags
-	int size = 5;
+	int size = 3;
+	int totalPIDs = 2;	// Everytime I initialize, I should be incrementing from 0 to keep track
 	struct pid *pid_list[size];	//TODO: change the initialization size at the size variables arg parser is giving
 	// struct pid *p2 = create_pid(20);
 	pid_list[0] = create_pid(20);
@@ -22,10 +23,9 @@ int main(int argc, char** argv){
 	pid_list[1] = create_pid(30);
 	
 	//print information about all the PIDs
-	for(int i=0; i<= size; i++){
+	for(int i=0; i< totalPIDs; i++){
 		if(pid_list[i])
 			printPID(*pid_list[i]);
-
 	}
 
 }
