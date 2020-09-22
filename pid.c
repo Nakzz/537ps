@@ -13,6 +13,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
+#include <ctype.h>
+
 
     // constructor function for PID struct
 	struct pid* create_pid(char* id){
@@ -45,7 +47,7 @@
     *   You might expect the output to look like: 1234: R utime=150 [myprog -x -y file1 myoption] 
     */
     void printPID(struct pid p){
-        printf("%d: %s %s %s %s %s %s\n", p.id, get_flag_s(p), get_flag_U(p), get_flag_S(p), get_flag_v(p), get_flag_c(p), get_flag_m(p));
+        printf("%s: %s %s %s %s %s %s\n", p.id, get_flag_s(p), get_flag_U(p), get_flag_S(p), get_flag_v(p), get_flag_c(p), get_flag_m(p));
     }
 
     /*
@@ -93,28 +95,42 @@
     }
 
 
+    /*
+    *
+    * Returns the single-character state information about the process
+    * 
+    */
 	char* get_flag_s(struct pid p)
     {
-
-        char *result = malloc(sizeof(char) *20); // allocate memory on the heap
         
-
         if(p.flag_s){
 
            //call the helper method
-           result=  _getFieldfromStat(p.id, 3); ///proc/[pid]/stat (3) state  %c
-            // printf("%s \n", p.stat);
-            // strcpy(result, "todo: s"); //TODO: Finish implementing
-            
+          return _getFieldfromStat(p.id, 3); ///proc/[pid]/stat (3) state  %c
+
         }
 
-        return result;
+        return NULL;
 
     }
 	char* get_flag_S(struct pid p){
 
     }
+
 	char* get_flag_U(struct pid p){
+        //   char *result = malloc(sizeof(char) *20); // allocate memory on the heap
+        
+
+        if(p.flag_s){
+
+           //call the helper method
+           return  _getFieldfromStat(p.id, 14); ///proc/[pid]/stat (14) utime  %lu
+            // printf("%s \n", p.stat);
+            // strcpy(result, "todo: s"); //TODO: Finish implementing
+            
+        }
+
+        return NULL;
 
     }
 	char* get_flag_v(struct pid p){
@@ -148,7 +164,8 @@
 //stat_index -1 is the index 
 char* _getFieldfromStat(char* p, int stat_index){
 
-        char result[20];  // allocate memory on the stack
+            // char result[20];  // allocate memory on the stack
+            char *result = malloc(sizeof(char) *20); // allocate memory on the heap
 
             char path[20];
 
@@ -178,25 +195,36 @@ char ch;
         exit(EXIT_FAILURE);
     }
 
-
-
+    stat_index--; // adjusting index, since parameter coming in follows PS 
+    int i=-1;
     do 
     {
         /* Read single character from file */
         ch = fgetc(fPtr);
 
         /* Print character read on console */
-        putchar(ch);
         // strcat(result, ch);
+        //putchar(ch);
+        //printf("%d \n ", isspace(ch));
 
-        if(strcmp(ch, " ")){
+        if(isspace(ch) != 0){
             stat_index--;
         }
         //TODO: add ch to some holder
 
+
         if(stat_index<0){
             break;
+        } else if(stat_index==0 ){
+
+        // putchar(ch);
+        // sprintf(ch, "%d", ch);
+        // strcpy(result, ch);
+        if(i>=0)
+        result[i] = ch;
+        i++;
         }
+
 
     } while(ch != EOF); /* Repeat this if last read character is not EOF */
 
@@ -204,6 +232,7 @@ char ch;
     /* Done with this file, close file to release resource */
     fclose(fPtr);
 
+// printf("done parsing %s \n ", result);
     // printf("%s", result);
 
     return result;
