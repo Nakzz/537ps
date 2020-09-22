@@ -28,6 +28,7 @@
        newPID->exists =1;
        newPID->flag_p =1;
        newPID->flag_c=1 ; //This option defaults to be true
+       newPID->flag_U=1 ; //This option defaults to be true
 
 
        return newPID;
@@ -117,17 +118,16 @@
 
     }
 
+    //FIxME: 
 	char* get_flag_U(struct pid p){
-        //   char *result = malloc(sizeof(char) *20); // allocate memory on the heap
+        char *result = malloc(sizeof(char) *50); // allocate memory on the heap
         
 
         if(p.flag_s){
 
            //call the helper method
-           return  _getFieldfromStat(p.id, 14); ///proc/[pid]/stat (14) utime  %lu
-            // printf("%s \n", p.stat);
-            // strcpy(result, "todo: s"); //TODO: Finish implementing
-            
+           strcpy(result, "utime: ");
+           return  strcat( result, _getFieldfromStat(p.id, 14) ); ///proc/[pid]/stat (14) utime  %lu            
         }
 
         return NULL;
