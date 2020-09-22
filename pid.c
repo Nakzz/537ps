@@ -120,7 +120,7 @@ char *get_flag_s(struct pid p)
 
 /*
     *
-    * Returns pointer to amount of system time consumed so far by this process
+    * Returns pointer to the amount of system time consumed so far by this process
     * 
     */
 char *get_flag_S(struct pid p)
@@ -140,7 +140,7 @@ char *get_flag_S(struct pid p)
 
 /*
     *
-    * Returns pointer to amount of user time consumed so far by this process
+    * Returns pointer to the amount of user time consumed so far by this process
     * 
     */
 char *get_flag_U(struct pid p)
@@ -158,7 +158,11 @@ char *get_flag_U(struct pid p)
     return "";
 }
 
-
+/*
+    *
+    * Returns pointer to the amount of virtual memory currently being used
+    * 
+    */
 char *get_flag_v(struct pid p)
 {
 
@@ -233,8 +237,78 @@ char *get_flag_v(struct pid p)
 }
 
 ///proc/[pid]/cmdline
+/*
+    *
+    * Returns pointer to the command-line that started this program
+    * 
+    */
 char *get_flag_c(struct pid p)
 {
+        if (p.flag_c)
+    {
+        char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
+
+        // char result[20];  // allocate memory on the stack
+        //char *result = malloc(sizeof(char) *20); // allocate memory on the heap
+
+        char path[20];
+
+        strcpy(path, "/proc/");
+        strcat(path, p.id);
+        strcat(path, "/cmdline");
+
+        /* File pointer to hold reference to our file */
+        FILE *fPtr;
+
+        char ch;
+
+        /* 
+     * Open file in r (read) mode. 
+     * "data/file1.txt" is complete file path to read
+     */
+        fPtr = fopen(path, "r");
+
+        /* fopen() return NULL if last operation was unsuccessful */
+        if (fPtr == NULL)
+        {
+            /* Unable to open file hence exit */
+            printf("Unable to open file.\n");
+            printf("Please check whether file exists and you have read privilege.\n");
+            exit(EXIT_FAILURE);
+        }
+
+        int i = 0;
+        do
+        {
+            /* Read single character from file */
+            ch = fgetc(fPtr);
+
+            /* Print character read on console */
+            // strcat(result, ch);
+            putchar(ch);
+            //printf("%d \n ", isspace(ch));
+
+
+            result[i++] = ch;
+
+        } while (ch != EOF); /* Repeat this if last read character is not EOF */
+
+        /* Done with this file, close file to release resource */
+        fclose(fPtr);
+
+        // printf("vmem is %s \n", result);
+
+        char *temp = malloc(sizeof(char) *100); // allocate memory on the heap
+
+         strcpy(  temp, "[ ");
+         strcat(  temp, result);
+         strcat(  temp, " ]");
+
+
+        return temp;
+    }
+
+    return "";
 }
 
 /*
