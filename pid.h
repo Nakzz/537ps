@@ -13,7 +13,8 @@ typedef int bool;
 #define false 0
 
 typedef struct pid{
-		int id;
+		char id[20];
+		char stat[100];
 		bool exists;
 		bool flag_p;
 		bool flag_s;
@@ -21,17 +22,19 @@ typedef struct pid{
 		bool flag_U;
 		bool flag_v;
 		bool flag_c;
-	}; 
+	};
 		
-struct pid * create_pid(int id);	// constructor
-char* get_flag_p(struct pid p);
+struct pid * create_pid(char* id);	// constructor
+char* get_flag_p(struct pid p); //TODO: remove, since this can be taken care from printPID function
 char* get_flag_s(struct pid p);
 char* get_flag_S(struct pid p);
 char* get_flag_U(struct pid p);
 char* get_flag_v(struct pid p);
 char* get_flag_c(struct pid p);
+char* get_flag_m(struct pid p);
 void printPID(struct pid p);
 
 void freePID(struct pid list[]);	//destructor
 	
-int _pid_exists(int pid);
+int _pid_exists(char* pid);
+char* _getFieldfromStat(char* p, int stat_index);

@@ -8,7 +8,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "pid.h";
+#include "pid.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -21,16 +21,25 @@ int main(int argc, char** argv){
 
 	//TODO: create a command handler which will map each flag to a function
 
-	//
-	//create pid's for all the PID and change flags
+	
+	//create pid's for all the PID using while
 	int size = 3;
-	int totalPIDs = 2;	// Everytime I initialize, I should be incrementing from 0 to keep track
-	struct pid *pid_list[size];	//TODO: change the initialization size at the size variables arg parser is giving
-	// struct pid *p2 = create_pid(20);
-	pid_list[0] = create_pid(20);
-	pid_list[0]->flag_p=1;
+		struct pid *pid_list[size];	//TODO: change the initialization size at the size variables arg parser is giving
+		pid_list[0] = create_pid("12815");
+		//pid_list[1] = create_pid(30);
+	
+	int totalPIDs = 1;	// Everytime I initialize, I should be incrementing from 0 to keep track
+	
+	//if totalPID is 0, then 
+		// TODO: implement for all processes of the current user (and only of the current user)
+        	// find current user
+        	// for all processes for current user, create pid and add to list
+    
 
-	pid_list[1] = create_pid(30);
+	//and change flags for all pid in pid_list
+
+				pid_list[0]->flag_s=1;
+
 	
 	//print information about all the PIDs
 	for(int i=0; i< totalPIDs; i++){
