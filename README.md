@@ -1,6 +1,13 @@
 # 537ps
 Implementation of "ps" command from Linux
 
+## To build
+
+For the PID components
+gcc -g -o 537ps main.c pid.c
+
+
+
 ## There are several goals for this assignment.
 
 (Re-)familiarize yourself with the C programming language. Dealing with separate compilation is likely to be new to many of you.
