@@ -59,6 +59,8 @@ int main(int argc, char** argv){
 			pidList = malloc(sizeof( struct pid *) * size);
 			for(int i=0; i<size; i++){
 				pidList[i] = create_pid((allUserPID[i]));
+				// printf("pointer: %d \n", pidList[i]);
+				if(pidList[i] != NULL){
 				pidList[i]->flag_s = sFlag;
 				pidList[i]->flag_U = UFlag;
 				pidList[i]->flag_c = cFlag;
@@ -89,8 +91,7 @@ int main(int argc, char** argv){
 
 for(int i=0; i<size; i++){
 		if(pidList[i] != NULL){
-			printPID(*pidList[i]);
-		}
+// printf("pointer: %d \n", pidList[i]);
 	}
 		exit(0);
 }
