@@ -10,6 +10,6 @@
 	int main(int argc, char ** argv);
 	
     int _getAllUserOwnedPID(char ** allUserPID);
-int _isAllDigit(char *s);
+	int _isAllDigit(char *s);
 
 #endif
