@@ -56,7 +56,30 @@ void printPID(struct pid p)
     if(p.exists){
     //  printf("%s: %d %d %d %d %d %d\n", p.id, p.flag_s, p.flag_U, p.flag_S, p.flag_v, p.flag_c, p.flag_m);
 
-     printf("%s: %s %s %s %s %s %s\n", p.id, get_flag_s(p), get_flag_U(p), get_flag_S(p), get_flag_v(p), get_flag_c(p), get_flag_m(p));
+    char *result_s = malloc(sizeof(char) * 50); // allocate memory on the heap
+    char *result_U = malloc(sizeof(char) * 50); // allocate memory on the heap
+    char *result_S = malloc(sizeof(char) * 50); // allocate memory on the heap
+    char *result_v = malloc(sizeof(char) * 50); // allocate memory on the heap
+    char *result_c = malloc(sizeof(char) * 50); // allocate memory on the heap
+    char *result_m = malloc(sizeof(char) * 50); // allocate memory on the heap
+    
+        get_flag_s(p, result_s); 
+        get_flag_U(p, result_U); 
+        get_flag_S(p, result_S);
+        get_flag_v(p, result_v); 
+        get_flag_c(p, result_c); 
+        get_flag_m(p, result_m);
+
+     printf("%s: %s %s %s %s %s %s\n", p.id,  result_s, result_U, result_S, result_v, result_c, result_m);
+
+     free(result_s);
+     free(result_U);
+     free(result_S);
+     free(result_v);
+     free(result_c);
+     free(result_m);
+
+
 
     }
 }
@@ -66,6 +89,7 @@ void printPID(struct pid p)
     * 
     * 
     */
+
 int _pid_exists(char *id)
 {
 
@@ -96,14 +120,14 @@ int _pid_exists(char *id)
     * Returns pointer to the single-character state information about the process
     * 
     */
-char *get_flag_s(struct pid p)
+void get_flag_s(struct pid p, char * result)
 {
 
     if (p.flag_s)
     {
 
         //call the helper method
-        return _getFieldfromStat(p.id, 3); ///proc/[pid]/stat (3) state  %c
+        return _getFieldfromStat(p.id, 3, result); ///proc/[pid]/stat (3) state  %c
     }
 
     return " ";
@@ -114,19 +138,17 @@ char *get_flag_s(struct pid p)
     * Returns pointer to the amount of system time consumed so far by this process
     * 
     */
-char *get_flag_S(struct pid p)
+void get_flag_S(struct pid p, char * result)
 {
-    char *result = malloc(sizeof(char) * 50); // allocate memory on the heap
+    // char *result = malloc(sizeof(char) * 50); // allocate memory on the heap
 
     if (p.flag_S)
     {
-
         //call the helper method
         strcpy(result, "stime: ");
-        return strcat(result, _getFieldfromStat(p.id, 15)); // /proc/[pid]/stat (15) stime  %lu
+        _getFieldfromStat(p.id, 15, result); // /proc/[pid]/stat (15) stime  %lu
+    
     }
-
-    return "";
 }
 
 /*
@@ -134,19 +156,19 @@ char *get_flag_S(struct pid p)
     * Returns pointer to the amount of user time consumed so far by this process
     * 
     */
-char *get_flag_U(struct pid p)
+void get_flag_U(struct pid p, char * result)
 {
-    char *result = malloc(sizeof(char) * 50); // allocate memory on the heap
+    // char *result = malloc(sizeof(char) * 50); // allocate memory on the heap
 
     if (p.flag_U)
     {
 
         //call the helper method
         strcpy(result, "utime: ");
-        return strcat(result, _getFieldfromStat(p.id, 14)); ///proc/[pid]/stat (14) utime  %lu
+        _getFieldfromStat(p.id, 14, result);
     }
 
-    return "";
+    // return "";
 }
 
 /*
@@ -154,12 +176,12 @@ char *get_flag_U(struct pid p)
     * Returns pointer to the amount of virtual memory currently being used
     * 
     */
-char *get_flag_v(struct pid p)
+void get_flag_v(struct pid p, char * result)
 {
 
     if (p.flag_v)
     {
-        char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
+        // char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
 
         // char result[20];  // allocate memory on the stack
         //char *result = malloc(sizeof(char) *20); // allocate memory on the heap
@@ -209,21 +231,20 @@ char *get_flag_v(struct pid p)
             result[i++] = ch;
 
         } while (ch != EOF); /* Repeat this if last read character is not EOF */
-
+        
         /* Done with this file, close file to release resource */
         fclose(fPtr);
 
         // printf("vmem is %s \n", result);
 
-        char *temp = malloc(sizeof(char) * 50); // allocate memory on the heap
+        // char *temp = malloc(sizeof(char) * 50); // allocate memory on the heap
 
-        strcpy(temp, "vmem: ");
-        strcat(temp, result);
+        // strcat(temp, result);
 
-        return temp;
+        // return temp;
     }
 
-    return "";
+    // return "";
 }
 
 /*
@@ -231,11 +252,11 @@ char *get_flag_v(struct pid p)
     * Returns pointer to the command-line that started this program
     * 
     */
-char *get_flag_c(struct pid p)
+void get_flag_c(struct pid p, char * result)
 {
     if (p.flag_c)
     {
-        char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
+        // char *result = malloc(sizeof(char) * 20); // allocate memory on the heap 
 
         // char result[20];  // allocate memory on the stack
         //char *result = malloc(sizeof(char) *20); // allocate memory on the heap
@@ -287,16 +308,16 @@ if(fPtr)
 
         // printf("vmem is %s \n", result);
 
-        char *temp = malloc(sizeof(char) * 100); // allocate memory on the heap
+        // char *temp = malloc(sizeof(char) * 100); // allocate memory on the heap
 
-        strcpy(temp, "[ ");
-        strcat(temp, result);
-        strcat(temp, " ]");
+        // strcpy(temp, "[ ");
+        // strcat(temp, result);
+        // strcat(temp, " ]");
 
-        return temp;
+        // return temp;
     }
 
-    return "";
+    // return "";
 }
 
 /*
@@ -304,10 +325,10 @@ if(fPtr)
 *   addr and displaying decimal len bytes of information.
 *
     */
-char *get_flag_m(struct pid p)
+void get_flag_m(struct pid p, char * result)
 {
     //printf(" Id is: %d ,sFlag is: %d\n", p.id, p.flag_p);
-    char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
+    // char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
     //char result[100];
 
     //printf(" Id is: %d ,pFlag is: %d\n", p.id, p.flag_p);
@@ -317,15 +338,15 @@ char *get_flag_m(struct pid p)
         strcpy(result, "todo: Extracredit m"); //TODO: Finish implementing
     }
 
-    return result;
+    //return result;
 }
 
 //stat_index -1 is the index
-char *_getFieldfromStat(char *p, int stat_index)
+void _getFieldfromStat(char *p, int stat_index, char * result)
 {
 
     // char result[20];  // allocate memory on the stack
-    char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
+    //char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
 
     char path[20];
 
@@ -394,5 +415,5 @@ char *_getFieldfromStat(char *p, int stat_index)
     // printf("done parsing %s \n ", result);
     // printf("%s", result);
 
-    return result;
+    //return result;
 }

@@ -37,18 +37,18 @@ typedef struct pid{
 	};
 		
 struct pid * create_pid(char* id);	// constructor
-char* get_flag_p(struct pid p); //TODO: remove, since this can be taken care from printPID function
-char* get_flag_s(struct pid p);
-char* get_flag_S(struct pid p);
-char* get_flag_U(struct pid p);
-char* get_flag_v(struct pid p);
-char* get_flag_c(struct pid p);
-char* get_flag_m(struct pid p);
+void get_flag_p(struct pid p, char * result); //TODO: remove, since this can be taken care from printPID function
+void get_flag_s(struct pid p, char * result);
+void get_flag_S(struct pid p,char * result);
+void get_flag_U(struct pid p,char * result);
+void get_flag_v(struct pid p, char * result);
+void get_flag_c(struct pid p,char * result);
+void get_flag_m(struct pid p,char * result);
 void printPID(struct pid p);
 
 void freePID(struct pid list[]);	//destructor
 	
 int _pid_exists(char* pid);
-char* _getFieldfromStat(char* p, int stat_index);
+void _getFieldfromStat(char* p, int stat_index, char * result);
 
 #endif
