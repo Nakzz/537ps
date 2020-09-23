@@ -247,7 +247,7 @@ char *get_flag_c(struct pid p)
         strcat(path, "/cmdline");
 
         /* File pointer to hold reference to our file */
-        FILE *fPtr;
+        FILE *fPtr = malloc(sizeof(FILE));
 
         char ch;
 
