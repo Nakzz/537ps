@@ -8,59 +8,75 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "pid.h"
 #include "main.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <string.h>
-#include <dirent.h>
-#include <ctype.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-int main(int argc, char **argv)
-{
-
+int main(int argc, char** argv){
 	//DEVANSHU
 	//TODO:create argParser class
-	//TODO:pass in argc and argv. Expecting a map?
+	node **arguments = argParser(argc, argv);
+	int size = 0;
+	int sFlag = 0;
+	int UFlag = 1;
+	int cFlag = 1;
+	int vFlag = 0;
+	int SFlag = 0;
+	char *pids[argc];
+	for(int i=0; i<argc-1; i++){
+		if (arguments[i]->c == '0'){
+			continue;
+		}else if(arguments[i]->c == 'p'){
+			pids[size] = arguments[i]->flag;
+			size ++;
+		}else if(arguments[i]->c == 's'){
+			sFlag = 1;
+		}else if(arguments[i]->c == 'S'){
+			SFlag = 1;
+		}else if(arguments[i]->c == 'c'){
+			cFlag = 0;
+		}else if(arguments[i]->c == 'v'){
+			vFlag = 1;
+		}else if(arguments[i]->c == 'U'){
+			UFlag = 0;
+		}
+	}
 
-	//TODO: create a command handler which will map each flag to a function
-
-	//create pid's for all the PID using while
-	int size = 3;
-	struct pid *pid_list[size]; //TODO: change the initialization size at the size variables arg parser is giving
-								//pid_list[0] = create_pid("22685");
-								//pid_list[1] = create_pid(30);
-
-	int totalPIDs = 0; // Everytime I initialize, I should be incrementing from 0 to keep track
-
-	//if totalPID is 0, then
-	// TODO: implement for all processes of the current user (and only of the current user)
-	// find current user
-	// for all processes for current user, create pid and add to list
-	char ** allUserPID[1000];
+		struct pid **pidList;
+		if(size == 0){
+			//if totalPID is 0, then 
+			// TODO: implement for all processes of the current user (and only of the current user)
+        	// find current user
+        	// for all processes for current user, create pid and add to list
+				char ** allUserPID[1000];
 	_getAllUserOwnedPID(allUserPID);
 
 	for(int *i= allUserPID; *i; i++ ){
 		printf("%s \n", i);
 	}
+		}else{	
+			for(int i=0; i<size; i++){
+				pidList = malloc(sizeof( struct pid *) * size);
+				pidList[i] = create_pid((pids[i]));
+				pidList[i]->flag_s = sFlag;
+				pidList[i]->flag_U = UFlag;
+				pidList[i]->flag_c = cFlag;
+				pidList[i]->flag_v = vFlag;
+				pidList[i]->flag_S = SFlag;
+			}
+		}
 
-	//and change flags for all pid in pid_list
 
-	// pid_list[0]->flag_s=1;
-	// pid_list[0]->flag_v=1;
-	// pid_list[0]->flag_c=1;
+for(int i=0; i<size; i++){
+		printPID(*pidList[i]);
+	}
+		exit(0);
+
 
 	//print information about all the PIDs
-	for (int i = 0; i < totalPIDs; i++)
-	{
-		if (pid_list[i])
-			printPID(*pid_list[i]);
-	}
+	// for (int i = 0; i < totalPIDs; i++)
+	// {
+	// 	if (pid_list[i])
+	// 		printPID(*pid_list[i]);
+	// }
 }
 
 void _getAllUserOwnedPID(char ** allUserPID)

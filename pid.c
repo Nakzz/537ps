@@ -9,11 +9,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "pid.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <dirent.h>
-#include <ctype.h>
 
 // constructor function for PID struct
 struct pid *create_pid(char *id)
@@ -24,6 +19,11 @@ struct pid *create_pid(char *id)
         struct pid *newPID;
 
         newPID = malloc(sizeof(struct pid)); //TODO: Do I have to clean this before ending my program? If should I should have a decontructor
+        if(newPID == NULL){
+            printf("%s","%i\n" "errno: ", errno);
+            fprintf(stderr, "Error: %s\n", strerror( errno ));
+            exit(-1);
+        }
         //newPID->id = id;
         strcpy(newPID->id, id);
         newPID->exists = 1;

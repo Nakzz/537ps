@@ -7,7 +7,14 @@
 // Authors:		Ajmain Naqib, Devanshu Mantri
 //
 ///////////////////////////////////////////////////////////////////////////////
+#ifndef PID_H
+#define PID_H
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <ctype.h>
 typedef int bool;
 #define true 1
 #define false 0
@@ -41,3 +48,5 @@ void freePID(struct pid list[]);	//destructor
 	
 int _pid_exists(char* pid);
 char* _getFieldfromStat(char* p, int stat_index);
+
+#endif
