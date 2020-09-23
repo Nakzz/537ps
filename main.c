@@ -8,6 +8,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "main.h"
 #include "pid.h"
 #include <stdio.h>
 #include <string.h>
@@ -16,19 +17,41 @@ int main(int argc, char** argv){
 	
 	//DEVANSHU
 	//TODO:create argParser class
-	//TODO:pass in argc and argv. Expecting a map?
-	
+	node** arguments = argParser(argc, argv);
+	int size = 0;
+	int sFlag = 0;
+	int UFlag = 1;
+	int cFlag = 1;
+	int vFlag = 0;
+	int SFlag = 0;
+	char *pids[argc];
+	for(int i=0; i<argc-1; i++){
+		if (arguments[i]->c == '0'){
+			continue;
+		}else if(arguments[i]->c == 'p'){
+			*(pids[size]) = arguments[i]->flag;
+			size ++;
+		}else if(arguments[i]->c == 's'){
+			sFlag = 1;
+		}else if(arguments[i]->c == 'S'){
+			SFlag = 1;
+		}else if(arguments[i]->c == 'c'){
+			cFlag = 0;
+		}else if(arguments[i]->c == 'v'){
+			vFlag = 1;
+		}else if(arguments[i]-> == 'U'){
+			UFlag = 0;
+		}
+	}
 
-	//TODO: create a command handler which will map each flag to a function
-
-	
-	//create pid's for all the PID using while
-	int size = 3;
-		struct pid *pid_list[size];	//TODO: change the initialization size at the size variables arg parser is giving
-		pid_list[0] = create_pid("12815");
-		//pid_list[1] = create_pid(30);
-	
-	int totalPIDs = 1;	// Everytime I initialize, I should be incrementing from 0 to keep track
+		if(size == 0){
+			//TODO
+		}else{
+			struct pid *pidList[size];	
+			for(int i=0; i<size; i++){
+				pidList[i] = create_pid( (pids[i]) )
+			}
+		}
 	
 	//if totalPID is 0, then 
 		// TODO: implement for all processes of the current user (and only of the current user)
