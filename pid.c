@@ -76,7 +76,7 @@ int _pid_exists(char *id)
     {
         if (strcmp(procDir->d_name, id) == 0)
         {
-            printf("FOUND PID: %s %d \n", procDir->d_name, procDir->d_type);
+            // printf("FOUND PID: %s %d \n", procDir->d_name, procDir->d_type);
             return 1;
             break;
         }

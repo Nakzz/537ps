@@ -1,4 +1,4 @@
-#include "argParser.h"
+#include "argparser.h"
 
 node** argParser(int argc, char **argv){
 	int size = 0;
