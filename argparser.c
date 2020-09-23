@@ -1,4 +1,10 @@
-#include "argParser.h"
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <errno.h>
+#include "argparser.h"
 
 node** argParser(int argc, char **argv){
 	int size = 0;
