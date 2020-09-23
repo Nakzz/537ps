@@ -56,17 +56,14 @@ int main(int argc, char** argv){
 	// for(int *i= allUserPID; *i; i++ ){
 	// 	printf("%s \n", i);
 	// }
-pidList = malloc(sizeof( struct pid *) * size);
+			pidList = malloc(sizeof( struct pid *) * size);
 			for(int i=0; i<size; i++){
 				pidList[i] = create_pid((allUserPID[i]));
-				printf("pointer: %d \n", pidList[i]);
-				if(pidList[i] != NULL){
 				pidList[i]->flag_s = sFlag;
 				pidList[i]->flag_U = UFlag;
 				pidList[i]->flag_c = cFlag;
 				pidList[i]->flag_v = vFlag;
 				pidList[i]->flag_S = SFlag;
-				}
 			}
 
 		}else{	
@@ -92,7 +89,6 @@ pidList = malloc(sizeof( struct pid *) * size);
 
 for(int i=0; i<size; i++){
 		if(pidList[i] != NULL){
-printf("pointer: %d \n", pidList[i]);
 			printPID(*pidList[i]);
 		}
 	}
@@ -123,13 +119,6 @@ int _getAllUserOwnedPID(char ** allUserPID)
 		{
 			//enter those directory and check their status folder
 			char pathStat[20];
-char pathExist[20];
-
-                        strcpy(pathExist, path);
-                        strcat(pathExist, dp->d_name);
-                        strcat(pathExist, "/status");
-
-                        if(access(pathExist, F_OK) !=-1){
 
 			strcpy(pathStat, "head ");
 			strcat(pathStat, path);
@@ -191,7 +180,7 @@ subbuff[4] = '\0';
 
     }
     pclose(cmd);
-						}
+
 	
 		}
 	}
