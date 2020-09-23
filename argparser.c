@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdlib.h>
 #include "argparser.h"
 
 node** argParser(int argc, char **argv){
@@ -22,13 +23,16 @@ node** argParser(int argc, char **argv){
 	}
 
 	for(int i=0; i<argc-1; i++){
+
 		options[i] = malloc(sizeof(node));
+
 		if(options[i] == NULL){
-		printf("%s","%i\n" "errno: ", errno);
-		fprintf(stderr, "Error: %s\n", strerror( errno ));
-		exit(-1);
+			printf("%s","%i\n" "errno: ", errno);
+			fprintf(stderr, "Error: %s\n", strerror( errno ));
+			exit(-1);
+		}else{
+			options[i]->c = '0';
 		}
-		options[i]->c = '0';
 	} 
 
 	int opt;
@@ -38,7 +42,7 @@ node** argParser(int argc, char **argv){
 		{
 
 		case 'p':
-			if(*optarg == '-'){
+			if(optarg != 0x0 && *optarg == '-'){
 				printf("ERROR: no ProcessID provided for p:");
 				exit(-1);
 			}else{
@@ -50,7 +54,7 @@ node** argParser(int argc, char **argv){
 		break;
 
 		case 's':
-			if(optarg - '-' == 0){
+			if(optarg != 0x0 && *optarg - '-' == 0){
 				if(lasts > 0){
 					(options[lasts])->c = '0';
 				}
@@ -59,10 +63,12 @@ node** argParser(int argc, char **argv){
 				lasts = size;
 				size++;
 			}
+
 		break;
 
 		case 'U':
-			if(optarg - '-' == 0){
+
+			if(optarg != 0x0 && *optarg - '-' == 0){
 					(options[size])->c = 'U';
 					lastU = size;
 					size++;
@@ -74,7 +80,7 @@ node** argParser(int argc, char **argv){
 		break;
 
 		case 'S':
-			if(optarg - '-' == 0){
+			if(optarg != 0x0 && *optarg - '-' == 0){
 				if(lastS > 0){
 					(options[lastS])->c = '0';
 				}
@@ -85,7 +91,7 @@ node** argParser(int argc, char **argv){
 			}
 		break;
 		case 'v':
-			if(optarg - '-' == 0){
+			if(optarg != 0x0 && *optarg - '-' == 0){
 				if(lastv > 0){
 					(options[lastv])->c = '0';
 				}
@@ -96,7 +102,7 @@ node** argParser(int argc, char **argv){
 			}
 		break;
 		case 'c':
-			if(optarg - '-' == 0){
+			if(optarg != 0x0 && *optarg - '-' == 0){
 				(options[size])->c = 'c';
 				lastc = size;
 				size++;
