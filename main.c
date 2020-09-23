@@ -47,11 +47,23 @@ int main(int argc, char** argv){
         	// find current user
         	// for all processes for current user, create pid and add to list
 				char ** allUserPID[1000];
-	_getAllUserOwnedPID(allUserPID);
+	size = _getAllUserOwnedPID(allUserPID);
 
-	for(int *i= allUserPID; *i; i++ ){
-		printf("%s \n", i);
-	}
+	printf("%d \n", size);
+
+	// for(int *i= allUserPID; *i; i++ ){
+	// 	printf("%s \n", i);
+	// }
+pidList = malloc(sizeof( struct pid *) * size);
+			for(int i=0; i<size; i++){
+				pidList[i] = create_pid((allUserPID[i]));
+				pidList[i]->flag_s = sFlag;
+				pidList[i]->flag_U = UFlag;
+				pidList[i]->flag_c = cFlag;
+				pidList[i]->flag_v = vFlag;
+				pidList[i]->flag_S = SFlag;
+			}
+
 		}else{	
 				pidList = malloc(sizeof( struct pid *) * size);
 			for(int i=0; i<size; i++){
@@ -79,7 +91,7 @@ for(int i=0; i<size; i++){
 	// }
 }
 
-void _getAllUserOwnedPID(char ** allUserPID)
+int _getAllUserOwnedPID(char ** allUserPID)
 {
 
 	printf("The real user ID is %d\n", getuid());
@@ -138,7 +150,7 @@ subbuff[4] = '\0';
 // convert 123 to string [buf]
 		sprintf(snum, "%d", getuid());
 
-        printf("    comparing: %s and %s \n", subbuff, snum);
+        // printf("    comparing: %s and %s \n", subbuff, snum);
 
 
 		if(subbuff[0] == '0'){
@@ -146,7 +158,7 @@ subbuff[4] = '\0';
 			 if (snum[0] ==subbuff[0]){
 	//ADD TO SOME LIST
 			allUserPID[size++] = dp->d_name;
-        printf("    adding %s \n", dp->d_name);
+        // printf("    adding %s \n", dp->d_name);
 			 }
 
 		
@@ -169,9 +181,11 @@ subbuff[4] = '\0';
 		}
 	}
 
-		for(int i= 0; allUserPID[i] != NULL; i++ ){
-		printf("%s \n", allUserPID[i]);
-	}
+	// 	for(int i= 0; allUserPID[i] != NULL; i++ ){
+	// 	printf("%s \n", allUserPID[i]);
+	// }
+
+	return size;
 
 }
 

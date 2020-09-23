@@ -9,7 +9,7 @@
 
 	int main(int argc, char ** argv);
 	
-    void _getAllUserOwnedPID(char ** allUserPID);
+    int _getAllUserOwnedPID(char ** allUserPID);
 int _isAllDigit(char *s);
 
 #endif
