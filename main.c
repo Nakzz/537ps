@@ -10,7 +10,8 @@
 
 #include "main.h"
 
-int main(int argc, char** argv){
+int main(int argc, char **argv)
+{
 	//DEVANSHU
 	//TODO:create argParser class
 	node **arguments = argParser(argc, argv);
@@ -21,67 +22,84 @@ int main(int argc, char** argv){
 	int vFlag = 0;
 	int SFlag = 0;
 	char *pids[argc];
-	for(int i=0; i<argc-1; i++){
-		if (arguments[i]->c == '0'){
+	for (int i = 0; i < argc - 1; i++)
+	{
+		if (arguments[i]->c == '0')
+		{
 			continue;
-		}else if(arguments[i]->c == 'p'){
+		}
+		else if (arguments[i]->c == 'p')
+		{
 			pids[size] = arguments[i]->flag;
-			size ++;
-		}else if(arguments[i]->c == 's'){
+			size++;
+		}
+		else if (arguments[i]->c == 's')
+		{
 			sFlag = 1;
-		}else if(arguments[i]->c == 'S'){
+		}
+		else if (arguments[i]->c == 'S')
+		{
 			SFlag = 1;
-		}else if(arguments[i]->c == 'c'){
+		}
+		else if (arguments[i]->c == 'c')
+		{
 			cFlag = 0;
-		}else if(arguments[i]->c == 'v'){
+		}
+		else if (arguments[i]->c == 'v')
+		{
 			vFlag = 1;
-		}else if(arguments[i]->c == 'U'){
+		}
+		else if (arguments[i]->c == 'U')
+		{
 			UFlag = 0;
 		}
 	}
 
-		struct pid **pidList;
-		if(size == 0){
-			//if totalPID is 0, then 
-			// TODO: implement for all processes of the current user (and only of the current user)
-        	// find current user
-        	// for all processes for current user, create pid and add to list
-				char ** allUserPID[1000];
-	size = _getAllUserOwnedPID(allUserPID);
+	struct pid **pidList;
+	if (size == 0)
+	{
+		//if totalPID is 0, then
+		// TODO: implement for all processes of the current user (and only of the current user)
+		// find current user
+		// for all processes for current user, create pid and add to list
+		char **allUserPID[1000];
+		size = _getAllUserOwnedPID(allUserPID);
 
-	printf("%d \n", size);
+		printf("%d \n", size);
 
-	// for(int *i= allUserPID; *i; i++ ){
-	// 	printf("%s \n", i);
-	// }
-pidList = malloc(sizeof( struct pid *) * size);
-			for(int i=0; i<size; i++){
-				pidList[i] = create_pid((allUserPID[i]));
-				pidList[i]->flag_s = sFlag;
-				pidList[i]->flag_U = UFlag;
-				pidList[i]->flag_c = cFlag;
-				pidList[i]->flag_v = vFlag;
-				pidList[i]->flag_S = SFlag;
-			}
-
-		}else{	
-				pidList = malloc(sizeof( struct pid *) * size);
-			for(int i=0; i<size; i++){
-				pidList[i] = create_pid((pids[i]));
-				pidList[i]->flag_s = sFlag;
-				pidList[i]->flag_U = UFlag;
-				pidList[i]->flag_c = cFlag;
-				pidList[i]->flag_v = vFlag;
-				pidList[i]->flag_S = SFlag;
-			}
+		// for(int *i= allUserPID; *i; i++ ){
+		// 	printf("%s \n", i);
+		// }
+		pidList = malloc(sizeof(struct pid *) * size);
+		for (int i = 0; i < size; i++)
+		{
+			pidList[i] = create_pid((allUserPID[i]));
+			pidList[i]->flag_s = sFlag;
+			pidList[i]->flag_U = UFlag;
+			pidList[i]->flag_c = cFlag;
+			pidList[i]->flag_v = vFlag;
+			pidList[i]->flag_S = SFlag;
 		}
+	}
+	else
+	{
+		pidList = malloc(sizeof(struct pid *) * size);
+		for (int i = 0; i < size; i++)
+		{
+			pidList[i] = create_pid((pids[i]));
+			pidList[i]->flag_s = sFlag;
+			pidList[i]->flag_U = UFlag;
+			pidList[i]->flag_c = cFlag;
+			pidList[i]->flag_v = vFlag;
+			pidList[i]->flag_S = SFlag;
+		}
+	}
 
-
-for(int i=0; i<size; i++){
+	for (int i = 0; i < size; i++)
+	{
 		printPID(*pidList[i]);
 	}
-		exit(0);
-
+	exit(0);
 
 	//print information about all the PIDs
 	// for (int i = 0; i < totalPIDs; i++)
@@ -91,11 +109,11 @@ for(int i=0; i<size; i++){
 	// }
 }
 
-int _getAllUserOwnedPID(char ** allUserPID)
+int _getAllUserOwnedPID(char **allUserPID)
 {
 
-	printf("The real user ID is %d\n", getuid());
-	printf("The effective user ID is %d\n", geteuid());
+	// printf("The real user ID is %d\n", getuid());
+	// printf("The effective user ID is %d\n", geteuid());
 
 	char path[20];
 
@@ -108,7 +126,7 @@ int _getAllUserOwnedPID(char ** allUserPID)
 	if (!dir)
 		return;
 
-	int size =0;
+	int size = 0;
 	while ((dp = readdir(dir)) != NULL)
 	{
 		if (_isAllDigit(dp->d_name) == 1)
@@ -123,61 +141,56 @@ int _getAllUserOwnedPID(char ** allUserPID)
 			// strcat(path,"/");
 
 			FILE *popen(const char *command, const char *mode);
-			int pclose(FILE *stream);
+			int pclose(FILE * stream);
 
 			// FILE *fPtr;
 			// char ch;
 			// fPtr = fopen(pathStat, "r");
 
 			FILE *cmd;
-    char result[1024];
+			char result[1024];
 
-    cmd = popen(pathStat, "r");
+			cmd = popen(pathStat, "r");
 
-    if (cmd == NULL) {
-        perror("popen");
-    }
-    while (fgets(result, sizeof(result), cmd)) {
+			if (cmd == NULL)
+			{
+				perror("popen");
+			}
+			while (fgets(result, sizeof(result), cmd))
+			{
 
-char subbuff[5];
-memcpy( subbuff, &result[5], 4 ); // hoping that all UID can only be 4 characters long
-subbuff[4] = '\0';
+				char subbuff[5];
+				memcpy(subbuff, &result[5], 4); // hoping that all UID can only be 4 characters long
+				subbuff[4] = '\0';
 
-        //printf("     %s %c \n", subbuff, subbuff[0]);
+				//printf("     %s %c \n", subbuff, subbuff[0]);
 
-		char snum[5];
+				char snum[5];
 
-// convert 123 to string [buf]
-		sprintf(snum, "%d", getuid());
+				// convert 123 to string [buf]
+				sprintf(snum, "%d", getuid());
 
-        // printf("    comparing: %s and %s \n", subbuff, snum);
+				// printf("    comparing: %s and %s \n", subbuff, snum);
 
+				if (subbuff[0] == '0')
+				{
 
-		if(subbuff[0] == '0'){
+					if (snum[0] == subbuff[0])
+					{
+						//ADD TO SOME LIST
+						allUserPID[size++] = dp->d_name;
+						// printf("    adding %s \n", dp->d_name);
+					}
+				}
 
-			 if (snum[0] ==subbuff[0]){
-	//ADD TO SOME LIST
-			allUserPID[size++] = dp->d_name;
-        // printf("    adding %s \n", dp->d_name);
-			 }
-
-		
-
-		}
-
-
-		if(strcmp(subbuff, snum)==0){
-			//ADD TO SOME LIST
-			allUserPID[size++] = dp->d_name;
-        printf("    adding %s \n", dp->d_name);
-
-		}
-
-
-    }
-    pclose(cmd);
-
-	
+				if (strcmp(subbuff, snum) == 0)
+				{
+					//ADD TO SOME LIST
+					allUserPID[size++] = dp->d_name;
+					// printf("    adding %s \n", dp->d_name);
+				}
+			}
+			pclose(cmd);
 		}
 	}
 
@@ -186,7 +199,6 @@ subbuff[4] = '\0';
 	// }
 
 	return size;
-
 }
 
 int _isAllDigit(char *s)

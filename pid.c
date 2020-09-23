@@ -27,7 +27,7 @@ struct pid *create_pid(char *id)
         //newPID->id = id;
         strcpy(newPID->id, id);
         newPID->exists = 1;
-        newPID->flag_p = 1;
+        //newPID->flag_p = 1;
         newPID->flag_c = 1; //This option defaults to be true
         newPID->flag_U = 1; //This option defaults to be true
         newPID->flag_S = 0; //This option defaults to be false
@@ -53,7 +53,12 @@ struct pid *create_pid(char *id)
     */
 void printPID(struct pid p)
 {
-    printf("%s: %s %s %s %s %s %s\n", p.id, get_flag_s(p), get_flag_U(p), get_flag_S(p), get_flag_v(p), get_flag_c(p), get_flag_m(p));
+    if(p.exists){
+    //  printf("%s: %d %d %d %d %d %d\n", p.id, p.flag_s, p.flag_U, p.flag_S, p.flag_v, p.flag_c, p.flag_m);
+
+     printf("%s: %s %s %s %s %s %s\n", p.id, get_flag_s(p), get_flag_U(p), get_flag_S(p), get_flag_v(p), get_flag_c(p), get_flag_m(p));
+
+    }
 }
 
 /*
@@ -85,21 +90,6 @@ int _pid_exists(char *id)
     return 0; //did not find the process
 }
 
-//TODO: consider removing
-char *get_flag_p(struct pid p)
-{
-    char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
-    //char result[100];
-
-    //printf(" Id is: %d ,pFlag is: %d\n", p.id, p.flag_p);
-
-    if (p.flag_p)
-    {
-        strcpy(result, "todo: p"); //TODO: Finish implementing
-    }
-
-    return result;
-}
 
 /*
     *
@@ -148,7 +138,7 @@ char *get_flag_U(struct pid p)
 {
     char *result = malloc(sizeof(char) * 50); // allocate memory on the heap
 
-    if (p.flag_s)
+    if (p.flag_U)
     {
 
         //call the helper method
@@ -208,7 +198,7 @@ char *get_flag_v(struct pid p)
 
             /* Print character read on console */
             // strcat(result, ch);
-            putchar(ch);
+            // putchar(ch);
             //printf("%d \n ", isspace(ch));
 
             if (isspace(ch) != 0)
@@ -284,7 +274,7 @@ char *get_flag_c(struct pid p)
 
             /* Print character read on console */
             // strcat(result, ch);
-            putchar(ch);
+            // putchar(ch);
             //printf("%d \n ", isspace(ch));
 
             result[i++] = ch;
