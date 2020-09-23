@@ -27,12 +27,13 @@ node** argParser(int argc, char **argv){
 
 	int opt;
 	while ((opt = getopt(argc, argv, "-:p:s::U::S::v::c::m")) != -1){
+
 		switch (opt) 
 		{
 
 		case 'p':
 			if(*optarg == '-'){
-				printf("ERROR: no ProcssID provided for p:");
+				printf("ERROR: no ProcessID provided for p:");
 				exit(-1);
 			}else{
 			(options[size])->c = 'p';
@@ -90,24 +91,23 @@ node** argParser(int argc, char **argv){
 		break;
 		case 'c':
 			if(optarg - '-' == 0){
-				options[size]-> = 'c';
+				(options[size])->c = 'c';
 				lastc = size;
 				size++;
 			}else{
 				if(lastc > 0){
 				(options[lastc])->c = '0';
+				}
 			}
 			break;
 		case ':':
-		printf("Missing arg for %c\n", optopt);
-		exit(-1);
-		break;
-		default:
-			printf("Unknown option: %c\n", optopt);
+			printf("Missing arg for %c\n", optopt);
 			exit(-1);
+			break;
+			default:
+			printf("Unknown option: %c\n", optopt);
+			exit(-1);	
 		}
 	}
-	return options;
+return options;
 }
-
-
