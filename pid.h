@@ -14,7 +14,9 @@ typedef int bool;
 
 typedef struct pid{
 		char id[20];
-		char stat[100];
+		char stat[10];
+		char m_addr[100];
+		char m_len[10];
 		bool exists;
 		bool flag_p;
 		bool flag_s;
@@ -22,6 +24,7 @@ typedef struct pid{
 		bool flag_U;
 		bool flag_v;
 		bool flag_c;
+		bool flag_m;
 	};
 		
 struct pid * create_pid(char* id);	// constructor

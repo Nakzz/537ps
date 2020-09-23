@@ -2,6 +2,7 @@
  
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
  
 int main()
 {
@@ -9,11 +10,18 @@ int main()
      
     p_id=getpid();  /*process id*/
      
-
+    
+    int *result = malloc(sizeof(int) * 20); // allocate memory on the heap
 
     while(1){
-         printf("Process ID: %d\n",p_id);
+        result = rand();
+         printf("Process ID: %d  rand:%d at &%d \n",p_id, result, &result);
+
+
+
         sleep(5);
+
+
     }
     return 0;
 }

@@ -32,6 +32,7 @@ struct pid *create_pid(char *id)
         newPID->flag_U = 1; //This option defaults to be true
         newPID->flag_S = 0; //This option defaults to be false
         newPID->flag_v = 0; //This option defaults to be false
+        newPID->flag_m = 0; //This option defaults to be false
 
         return newPID;
 
@@ -224,11 +225,10 @@ char *get_flag_v(struct pid p)
 
         // printf("vmem is %s \n", result);
 
-        char *temp = malloc(sizeof(char) *50); // allocate memory on the heap
+        char *temp = malloc(sizeof(char) * 50); // allocate memory on the heap
 
-         strcpy(  temp, "vmem: ");
-         strcat(  temp, result);
-
+        strcpy(temp, "vmem: ");
+        strcat(temp, result);
 
         return temp;
     }
@@ -236,7 +236,6 @@ char *get_flag_v(struct pid p)
     return "";
 }
 
-///proc/[pid]/cmdline
 /*
     *
     * Returns pointer to the command-line that started this program
@@ -244,7 +243,7 @@ char *get_flag_v(struct pid p)
     */
 char *get_flag_c(struct pid p)
 {
-        if (p.flag_c)
+    if (p.flag_c)
     {
         char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
 
@@ -288,7 +287,6 @@ char *get_flag_c(struct pid p)
             putchar(ch);
             //printf("%d \n ", isspace(ch));
 
-
             result[i++] = ch;
 
         } while (ch != EOF); /* Repeat this if last read character is not EOF */
@@ -298,12 +296,11 @@ char *get_flag_c(struct pid p)
 
         // printf("vmem is %s \n", result);
 
-        char *temp = malloc(sizeof(char) *100); // allocate memory on the heap
+        char *temp = malloc(sizeof(char) * 100); // allocate memory on the heap
 
-         strcpy(  temp, "[ ");
-         strcat(  temp, result);
-         strcat(  temp, " ]");
-
+        strcpy(temp, "[ ");
+        strcat(temp, result);
+        strcat(temp, " ]");
 
         return temp;
     }
@@ -312,7 +309,9 @@ char *get_flag_c(struct pid p)
 }
 
 /*
-
+*   Returns pointer to the contents of a process's memory, starting at hexidecimal address 
+*   addr and displaying decimal len bytes of information.
+*
     */
 char *get_flag_m(struct pid p)
 {
@@ -322,7 +321,7 @@ char *get_flag_m(struct pid p)
 
     //printf(" Id is: %d ,pFlag is: %d\n", p.id, p.flag_p);
 
-    if (p.flag_s)
+    if (p.flag_m)
     {
         strcpy(result, "todo: Extracredit m"); //TODO: Finish implementing
     }
