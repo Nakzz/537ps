@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <ctype.h>
+#include <errno.h>
+
 typedef int bool;
 #define true 1
 #define false 0

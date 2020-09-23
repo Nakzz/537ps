@@ -53,8 +53,8 @@ int main(int argc, char** argv){
 		printf("%s \n", i);
 	}
 		}else{	
-			for(int i=0; i<size; i++){
 				pidList = malloc(sizeof( struct pid *) * size);
+			for(int i=0; i<size; i++){
 				pidList[i] = create_pid((pids[i]));
 				pidList[i]->flag_s = sFlag;
 				pidList[i]->flag_U = UFlag;
