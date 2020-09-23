@@ -57,12 +57,35 @@ void printPID(struct pid p)
     //  printf("%s: %d %d %d %d %d %d\n", p.id, p.flag_s, p.flag_U, p.flag_S, p.flag_v, p.flag_c, p.flag_m);
 
     char *result_s = malloc(sizeof(char) * 50); // allocate memory on the heap
+
+    if(result_s == NULL)
+            exit(-1);
+
     char *result_U = malloc(sizeof(char) * 50); // allocate memory on the heap
+
+       if(result_U == NULL)
+            exit(-1);
+
     char *result_S = malloc(sizeof(char) * 50); // allocate memory on the heap
+
+       if(result_S == NULL)
+            exit(-1);
+
     char *result_v = malloc(sizeof(char) * 50); // allocate memory on the heap
+
+       if(result_v == NULL)
+            exit(-1);
+
     char *result_c = malloc(sizeof(char) * 50); // allocate memory on the heap
+
+       if(result_c == NULL)
+            exit(-1);
+
     char *result_m = malloc(sizeof(char) * 50); // allocate memory on the heap
-    
+       if(result_m == NULL)
+            exit(-1);
+
+
         get_flag_s(p, result_s); 
         get_flag_U(p, result_U); 
         get_flag_S(p, result_S);
@@ -78,8 +101,6 @@ void printPID(struct pid p)
      free(result_v);
      free(result_c);
      free(result_m);
-
-
 
     }
 }
