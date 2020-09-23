@@ -11,7 +11,7 @@ node** argParser(int argc, char **argv){
 	node **options = malloc(sizeof(node*) * (argc-1));
 	if(options == NULL){
 		printf("%s","%i\n" "errno: ", errno);
-		fprintf(stderr, "Error opening file: %s\n", strerror( errno ));
+		fprintf(stderr, "Error: %s\n", strerror( errno ));
 		exit(-1);
 	}
 
@@ -19,7 +19,7 @@ node** argParser(int argc, char **argv){
 		options[i] = malloc(sizeof(node));
 		if(options[i] == NULL){
 		printf("%s","%i\n" "errno: ", errno);
-		fprintf(stderr, "Error opening file: %s\n", strerror( errno ));
+		fprintf(stderr, "Error: %s\n", strerror( errno ));
 		exit(-1);
 		}
 		options[i]->c = '0';

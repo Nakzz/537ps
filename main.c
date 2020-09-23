@@ -52,7 +52,7 @@ int main(int argc, char** argv){
 		}else{
 			struct pid *pidList[size];	
 			for(int i=0; i<size; i++){
-				pidList[i] = create_pid( (pids[i]) );
+				pidList[i] = create_pid((pids[i]));
 				pidList[i]->flag_s = sFlag;
 				pidlList[i]->flag_U = UFlag;
 				pidList[i]->flag_c = cFlag;
