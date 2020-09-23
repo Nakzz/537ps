@@ -9,15 +9,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "main.h"
-#include "pid.h"
-#include <stdio.h>
-#include <string.h>
 
 int main(int argc, char** argv){
 	
 	//DEVANSHU
 	//TODO:create argParser class
-	node** arguments = argParser(argc, argv);
+	node **arguments = argParser(argc, argv);
 	int size = 0;
 	int sFlag = 0;
 	int UFlag = 1;
@@ -29,7 +26,7 @@ int main(int argc, char** argv){
 		if (arguments[i]->c == '0'){
 			continue;
 		}else if(arguments[i]->c == 'p'){
-			*(pids[size]) = arguments[i]->flag;
+			pids[size] = arguments[i]->flag;
 			size ++;
 		}else if(arguments[i]->c == 's'){
 			sFlag = 1;
@@ -39,22 +36,23 @@ int main(int argc, char** argv){
 			cFlag = 0;
 		}else if(arguments[i]->c == 'v'){
 			vFlag = 1;
-		}else if(arguments[i]-> == 'U'){
+		}else if(arguments[i]->c == 'U'){
 			UFlag = 0;
 		}
 	}
 
+		struct pid **pidList;
 		if(size == 0){
 			//if totalPID is 0, then 
 			// TODO: implement for all processes of the current user (and only of the current user)
         	// find current user
         	// for all processes for current user, create pid and add to list
-		}else{
-			struct pid *pidList[size];	
+		}else{	
 			for(int i=0; i<size; i++){
+				pidList = malloc(sizeof( struct pid *) * size);
 				pidList[i] = create_pid((pids[i]));
 				pidList[i]->flag_s = sFlag;
-				pidlList[i]->flag_U = UFlag;
+				pidList[i]->flag_U = UFlag;
 				pidList[i]->flag_c = cFlag;
 				pidList[i]->flag_v = vFlag;
 				pidList[i]->flag_S = SFlag;
@@ -64,9 +62,8 @@ int main(int argc, char** argv){
 
 	
 	//print information about all the PIDs
-	for(int i=0; i< totalPIDs; i++){
-		if(pid_list[i])
-			printPID(*pid_list[i]);
+	for(int i=0; i<size; i++){
+		printPID(*pidList[i]);
 	}
-
+		exit(0);
 }
