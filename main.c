@@ -45,23 +45,22 @@ int main(int argc, char** argv){
 	}
 
 		if(size == 0){
-			//TODO
+			//if totalPID is 0, then 
+			// TODO: implement for all processes of the current user (and only of the current user)
+        	// find current user
+        	// for all processes for current user, create pid and add to list
 		}else{
 			struct pid *pidList[size];	
 			for(int i=0; i<size; i++){
-				pidList[i] = create_pid( (pids[i]) )
+				pidList[i] = create_pid( (pids[i]) );
+				pidList[i]->flag_s = sFlag;
+				pidlList[i]->flag_U = UFlag;
+				pidList[i]->flag_c = cFlag;
+				pidList[i]->flag_v = vFlag;
+				pidList[i]->flag_S = SFlag;
 			}
 		}
-	
-	//if totalPID is 0, then 
-		// TODO: implement for all processes of the current user (and only of the current user)
-        	// find current user
-        	// for all processes for current user, create pid and add to list
-    
 
-	//and change flags for all pid in pid_list
-
-				pid_list[0]->flag_s=1;
 
 	
 	//print information about all the PIDs
