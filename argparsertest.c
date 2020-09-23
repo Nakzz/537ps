@@ -1,5 +1,11 @@
 #include "argparser.h"
-
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <stdlib.h>
 int main(int argc, char *argv[]){
 	node **p = argParser(argc, argv);
 	for(int i=0; i<argc-1; i++){
