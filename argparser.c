@@ -1,12 +1,9 @@
-<<<<<<< HEAD
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <errno.h>
-=======
->>>>>>> efb62ae8346d8f9a8a7d9057d77e33b21fff6ced
 #include "argparser.h"
 
 node** argParser(int argc, char **argv){
