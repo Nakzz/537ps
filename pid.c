@@ -282,7 +282,8 @@ char *get_flag_c(struct pid p)
         } while (ch != EOF); /* Repeat this if last read character is not EOF */
 
         /* Done with this file, close file to release resource */
-        fclose(fPtr);
+if(fPtr)       
+ fclose(fPtr);
 
         // printf("vmem is %s \n", result);
 
