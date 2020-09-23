@@ -81,9 +81,9 @@ void printPID(struct pid p)
        if(result_c == NULL)
             exit(-1);
 
-    char *result_m = malloc(sizeof(char) * 50); // allocate memory on the heap
-       if(result_m == NULL)
-            exit(-1);
+    // char *result_m = malloc(sizeof(char) * 50); // allocate memory on the heap
+    //    if(result_m == NULL)
+    //         exit(-1);
 
 
         get_flag_s(p, result_s); 
@@ -91,16 +91,16 @@ void printPID(struct pid p)
         get_flag_S(p, result_S);
         get_flag_v(p, result_v); 
         get_flag_c(p, result_c); 
-        get_flag_m(p, result_m);
+        // get_flag_m(p, result_m);
 
-     printf("%s: %s %s %s %s %s %s\n", p.id,  result_s, result_U, result_S, result_v, result_c, result_m);
+     printf("%s: %s %s %s %s %s %s\n", p.id,  result_s, result_U, result_S, result_v, result_c);
 
      free(result_s);
      free(result_U);
      free(result_S);
      free(result_v);
      free(result_c);
-     free(result_m);
+    //  free(result_m);
 
     }
 }
@@ -148,10 +148,10 @@ void get_flag_s(struct pid p, char * result)
     {
 
         //call the helper method
-        return _getFieldfromStat(p.id, 3, result); ///proc/[pid]/stat (3) state  %c
+         _getFieldfromStat(p.id, 3, result); ///proc/[pid]/stat (3) state  %c
     }
 
-    return " ";
+    // return " ";
 }
 
 /*
