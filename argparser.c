@@ -1,12 +1,26 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// Title:		537ps
+// Filename:	argparser.c
+//
+// Course:		cs537, Fall 2020
+// Authors:		Ajmain Naqib, Devanshu Mantri
+//
+///////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <getopt.h>
 #include <stdlib.h>
 #include "argparser.h"
 
+/*
+ * this function parses the command line and returns
+ * a struct representing each flag and if it's a pid
+ * it also stores the PID in a string
+ */
 node** argParser(int argc, char **argv){
 	int size = 0;
-	int lastp = -1;
-	int lasts = -1;
+	int lastp = -1; //holds last place in array where last 'p'/pid was stored
+	int lasts = -1; // holds last place in array where last 's' as stored so it can be ignored if '-s-' follows
 	int lastU = -1;
 	int lastS = -1;
 	int lastv = -1;
@@ -36,7 +50,7 @@ node** argParser(int argc, char **argv){
 		{
 
 		case 'p':
-			if(optarg != 0x0 && *optarg == '-'){
+			if(optarg != 0x0 && *optarg == '-'){ // check for wrong argument
 				printf("ERROR: no ProcessID provided for p:");
 				exit(-1);
 			}else{
@@ -53,7 +67,7 @@ node** argParser(int argc, char **argv){
 					(options[lasts])->c = '0';
 				}
 			}else{
-				(options[size])->c = 's';
+				(options[size])->c = 's'; //sets s only if s is to be turned on
 				lasts = size;
 				size++;
 			}
@@ -63,7 +77,7 @@ node** argParser(int argc, char **argv){
 		case 'U':
 
 			if(optarg != 0x0 && *optarg - '-' == 0){
-					(options[size])->c = 'U';
+					(options[size])->c = 'U'; //sets U only if U is to be turned off
 					lastU = size;
 					size++;
 			}else{

@@ -10,6 +10,11 @@
 
 #include "main.h"
 
+/**
+ * recieves array of node structures,
+ *  and creats PID struct objects with correct Pid
+ * and flags set
+ **/
 int main(int argc, char **argv)
 {
 	node **arguments = argParser(argc, argv);
@@ -63,12 +68,8 @@ int main(int argc, char **argv)
 		char *allUserPID[1000];
 		size = _getAllUserOwnedPID(allUserPID);
 
-		printf("%d \n", size);
-
-		// for(int *i= allUserPID; *i; i++ ){
-		// 	printf("%s \n", i);
-		// }
 		pidList = malloc(sizeof(struct pid *) * size);
+
 		if (pidList == NULL)
 		{
 			printf("%s\n", "Error: Bad Malloc");
@@ -111,11 +112,20 @@ int main(int argc, char **argv)
 		}
 	}
 
-	for(int i=0; i<size; i++){
-			if(pidList[i] != NULL){
+	for (int i = 0; i < size; i++)
+	{
+		if (pidList[i] != NULL)
+		{
 			printPID(*pidList[i]);
 		}
 	}
+	for (int i = 0; i < size; i++)
+	{
+		free(arguments[i]);
+	}
+	free(arguments);
+
+	freePID(pidList, size);
 	exit(0);
 }
 
@@ -143,49 +153,57 @@ int _getAllUserOwnedPID(char **allUserPID)
 		{
 			//enter those directory and check their status folder
 			char pathStat[20];
+			char pathExist[20];
 
-			strcpy(pathStat, "head ");
-			strcat(pathStat, path);
-			strcat(pathStat, dp->d_name);
-			strcat(pathStat, "/status | grep \"Uid:\"");
+			strcpy(pathExist, path);
+			strcat(pathExist, dp->d_name);
+			strcat(pathExist, "/status");
 
-			FILE *popen(const char *command, const char *mode);
-			int pclose(FILE * stream);
-
-			FILE *cmd;
-			char result[1024];
-
-			cmd = popen(pathStat, "r");
-
-			if (cmd == NULL)
-			{
-				perror("popen");
-			}
-
-			char *line = NULL;
-			size_t len = 0;
-
-			while (getline(&line, &len, cmd) != -1)
+			if (access(pathExist, F_OK) != -1)
 			{
 
-				char subbuff[10];
-				char temp[10];
+				strcpy(pathStat, "head ");
+				strcat(pathStat, path);
+				strcat(pathStat, dp->d_name);
+				strcat(pathStat, "/status | grep \"Uid:\"");
 
-				sscanf(line, "%s %s", temp, subbuff);
+				FILE *popen(const char *command, const char *mode);
+				int pclose(FILE * stream);
 
-				// printf (" splits: %s %s\n",temp, subbuff);
+				FILE *cmd;
 
-				char snum[10];
-				sprintf(snum, "%d", getuid()); // convert 123 to string [buf]
+				cmd = popen(pathStat, "r");
 
-				if (strcmp(subbuff, snum) == 0)
+				if (cmd == NULL)
 				{
-					//ADD TO SOME LIST
-					allUserPID[size++] = dp->d_name;
-					// printf("    adding %s \n", dp->d_name);
+					perror("popen");
 				}
+
+				char *line = NULL;
+				size_t len = 0;
+
+				while (getline(&line, &len, cmd) != -1)
+				{
+
+					char subbuff[10];
+					char temp[10];
+
+					sscanf(line, "%s %s", temp, subbuff);
+
+					// printf (" splits: %s %s\n",temp, subbuff);
+
+					char snum[10];
+					sprintf(snum, "%d", getuid()); // convert 123 to string [buf]
+
+					if (strcmp(subbuff, snum) == 0)
+					{
+						//ADD TO SOME LIST
+						allUserPID[size++] = dp->d_name;
+						// printf("    adding %s \n", dp->d_name);
+					}
+				}
+				pclose(cmd);
 			}
-			pclose(cmd);
 		}
 	}
 
