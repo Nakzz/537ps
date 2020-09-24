@@ -20,7 +20,7 @@ struct pid *create_pid(char *id)
 
         newPID = malloc(sizeof(struct pid)); //TODO: Do I have to clean this before ending my program? If should I should have a decontructor
         if(newPID == NULL){
-            printf("%s","%i\n" "errno: ", errno);
+            printf("%s %i\n", "errno: ", errno);
             fprintf(stderr, "Error: %s\n", strerror( errno ));
             exit(-1);
         }
@@ -93,6 +93,16 @@ void printPID(struct pid p)
         get_flag_c(p, result_c); 
         // get_flag_m(p, result_m);
 
+        
+
+    //  printf("%s: %s %s %s %s %s \n", p.id,  result_s, result_U, result_S, result_v, result_c);
+     printf("%s: ", p.id);
+
+        get_flag_s(p, result_s); 
+        get_flag_U(p, result_U); 
+        get_flag_S(p, result_S);
+        get_flag_v(p, result_v); 
+        get_flag_c(p, result_c); 
      printf("%s: %s %s %s %s %s \n", p.id,  result_s, result_U, result_S, result_v, result_c);
 
      free(result_s);
@@ -118,7 +128,7 @@ int _pid_exists(char *id)
 
     // Unable to open directory stream
     if (!directory)
-        return;
+        return 0;
 
     struct dirent *procDir;
 
@@ -131,7 +141,7 @@ int _pid_exists(char *id)
             break;
         }
     }
-
+    closedir(directory);
     return 0; //did not find the process
 }
 
@@ -146,12 +156,10 @@ void get_flag_s(struct pid p, char * result)
 
     if (p.flag_s)
     {
-
         //call the helper method
          _getFieldfromStat(p.id, 3, result); ///proc/[pid]/stat (3) state  %c
     }
 
-    // return " ";
 }
 
 /*
@@ -233,7 +241,7 @@ void get_flag_v(struct pid p, char * result)
             exit(EXIT_FAILURE);
         }
 
-        int i = 0;
+        // int i = 0;
         do
         {
             /* Read single character from file */
@@ -249,20 +257,15 @@ void get_flag_v(struct pid p, char * result)
                 break;
             }
 
-            result[i++] = ch;
+            // result[i++] = ch;
+                printf("%c", ch);
+
 
         } while (ch != EOF); /* Repeat this if last read character is not EOF */
         
         /* Done with this file, close file to release resource */
         fclose(fPtr);
 
-        // printf("vmem is %s \n", result);
-
-        // char *temp = malloc(sizeof(char) * 50); // allocate memory on the heap
-
-        // strcat(temp, result);
-
-        // return temp;
     }
 
     // return "";
@@ -275,12 +278,11 @@ void get_flag_v(struct pid p, char * result)
     */
 void get_flag_c(struct pid p, char * result)
 {
+    // _appendChar(result, '[');
+                printf("%c", '[');
+
     if (p.flag_c)
     {
-        // char *result = malloc(sizeof(char) * 20); // allocate memory on the heap 
-
-        // char result[20];  // allocate memory on the stack
-        //char *result = malloc(sizeof(char) *20); // allocate memory on the heap
 
         char path[20];
 
@@ -289,7 +291,8 @@ void get_flag_c(struct pid p, char * result)
         strcat(path, "/cmdline");
 
         /* File pointer to hold reference to our file */
-        FILE *fPtr = malloc(sizeof(FILE));
+        FILE *fPtr;
+        // = malloc(sizeof(FILE));
 
         char ch;
 
@@ -317,28 +320,25 @@ void get_flag_c(struct pid p, char * result)
             /* Print character read on console */
             // strcat(result, ch);
             // putchar(ch);
-            //printf("%d \n ", isspace(ch));
+                if(ch != '\0' || ch != )
+                printf("%c", ch);
 
-            result[i++] = ch;
+            // _appendChar(result, ch);
+            // result[i++] = ch;
 
         } while (ch != EOF); /* Repeat this if last read character is not EOF */
 
+            // printf("    %s \n ", result);
+
         /* Done with this file, close file to release resource */
-if(fPtr)       
- fclose(fPtr);
+      
+        fclose(fPtr);
+        // free(fPtr);
+                printf("%c", ']');
 
-        // printf("vmem is %s \n", result);
+    // _appendChar(result, ']');
 
-        // char *temp = malloc(sizeof(char) * 100); // allocate memory on the heap
-
-        // strcpy(temp, "[ ");
-        // strcat(temp, result);
-        // strcat(temp, " ]");
-
-        // return temp;
     }
-
-    // return "";
 }
 
 /*
@@ -348,26 +348,16 @@ if(fPtr)
     */
 void get_flag_m(struct pid p, char * result)
 {
-    //printf(" Id is: %d ,sFlag is: %d\n", p.id, p.flag_p);
-    // char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
-    //char result[100];
-
-    //printf(" Id is: %d ,pFlag is: %d\n", p.id, p.flag_p);
 
     if (p.flag_m)
     {
         strcpy(result, "todo: Extracredit m"); //TODO: Finish implementing
     }
-
-    //return result;
 }
 
 //stat_index -1 is the index
 void _getFieldfromStat(char *p, int stat_index, char * result)
 {
-
-    // char result[20];  // allocate memory on the stack
-    //char *result = malloc(sizeof(char) * 20); // allocate memory on the heap
 
     char path[20];
 
@@ -424,8 +414,8 @@ void _getFieldfromStat(char *p, int stat_index, char * result)
             // sprintf(ch, "%d", ch);
             // strcpy(result, ch);
             if (i >= 0){
-                _appendChar(result, ch);
-                printf("%d", result);
+                // _appendChar(result, ch);
+                printf("%c", ch);
             }
              i++;
         }
@@ -447,6 +437,9 @@ void _getFieldfromStat(char *p, int stat_index, char * result)
 **/
 void _appendChar(char *array, char c){
 
+    if(c=='\0')
+        return;
+        
     int i =0;
     while( *(array + (i * sizeof(char)) ) != '\0'){
         i++;

@@ -21,7 +21,7 @@ typedef int bool;
 #define true 1
 #define false 0
 
-typedef struct pid{
+struct pid{
 		char id[20];
 		char stat[10];
 		char m_addr[100];

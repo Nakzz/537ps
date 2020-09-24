@@ -1,9 +1,6 @@
 #include <stdio.h>
-#include <string.h>
-#include <unistd.h>
+#include <getopt.h>
 #include <stddef.h>
-#include <stdlib.h>
-#include <errno.h>
 #include <stdlib.h>
 #include "argparser.h"
 
@@ -111,11 +108,11 @@ node** argParser(int argc, char **argv){
 			}
 			break;
 		case ':':
-			printf("Missing arg for %c\n", optopt);
+			printf("Missing arg");
 			exit(-1);
 			break;
 			default:
-			printf("Unknown option: %c\n", optopt);
+			printf("Unknown option:");
 			exit(-1);	
 		}
 	}
