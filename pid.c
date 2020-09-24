@@ -423,9 +423,11 @@ void _getFieldfromStat(char *p, int stat_index, char * result)
             // putchar(ch);
             // sprintf(ch, "%d", ch);
             // strcpy(result, ch);
-            if (i >= 0)
-                result[i] = ch;
-            i++;
+            if (i >= 0){
+                _appendChar(result, ch);
+                printf("%d", result);
+            }
+             i++;
         }
 
     } while (ch != EOF); /* Repeat this if last read character is not EOF */
@@ -437,4 +439,21 @@ void _getFieldfromStat(char *p, int stat_index, char * result)
     // printf("%s", result);
 
     //return result;
+}
+
+
+/**
+* appends char c to end of string (array)
+**/
+void _appendChar(char *array, char c){
+
+    int i =0;
+    while( *(array + (i * sizeof(char)) ) != '\0'){
+        i++;
+    }
+
+    if( i <= 49){
+        *(array + (i * sizeof(char)) )  = c;
+         *(array + ( (i + 1 )* sizeof(char)) )  = '\0';
+    }
 }
