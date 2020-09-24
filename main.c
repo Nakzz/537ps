@@ -11,11 +11,7 @@
 #include "main.h"
 
 int main(int argc, char** argv){
-
 	node **arguments = argParser(argc, argv);
-		for(int i=0; i<argc-1; i++){
-			printf("%c\n",arguments[i]->c);
-		}
 	int size = 0;
 	int sFlag = 0;
 	int UFlag = 1;
@@ -93,11 +89,11 @@ int main(int argc, char** argv){
 		}
 
 
-for(int i=0; i<size; i++){
-		if(pidList[i] != NULL){
-// printf("pointer: %d \n", pidList[i]);
-	}
-}
+// for(int i=0; i<size; i++){
+// 		if(pidList[i] != NULL){
+// 		printPID(*pidList[i]);
+// 	}
+// }
 		exit(0);
 }
 
