@@ -86,11 +86,11 @@ void printPID(struct pid p)
     //         exit(-1);
 
 
-        get_flag_s(p, result_s); 
-        get_flag_U(p, result_U); 
-        get_flag_S(p, result_S);
-        get_flag_v(p, result_v); 
-        get_flag_c(p, result_c); 
+        // get_flag_s(p, result_s); 
+        // get_flag_U(p, result_U); 
+        // get_flag_S(p, result_S);
+        // get_flag_v(p, result_v); 
+        // get_flag_c(p, result_c); 
         // get_flag_m(p, result_m);
 
         
@@ -103,7 +103,8 @@ void printPID(struct pid p)
         get_flag_S(p, result_S);
         get_flag_v(p, result_v); 
         get_flag_c(p, result_c); 
-     printf("%s: %s %s %s %s %s \n", p.id,  result_s, result_U, result_S, result_v, result_c);
+
+     printf(" \n");
 
      free(result_s);
      free(result_U);
@@ -320,7 +321,7 @@ void get_flag_c(struct pid p, char * result)
             /* Print character read on console */
             // strcat(result, ch);
             // putchar(ch);
-                if(ch != '\0' || ch != )
+                if(ch != '\0')
                 printf("%c", ch);
 
             // _appendChar(result, ch);

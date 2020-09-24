@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <getopt.h>
-#include <stddef.h>
 #include <stdlib.h>
 #include "argparser.h"
 
