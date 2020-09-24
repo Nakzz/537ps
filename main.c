@@ -57,7 +57,13 @@ int main(int argc, char **argv)
 			UFlag = 0;
 		}
 	}
-
+	int number = 0;
+	for(int i=0; i<argc-1; i++){
+		if(arguments[i] != NULL){
+			number++;
+		}
+	}
+	
 	struct pid **pidList;
 	if (size == 0)
 	{
