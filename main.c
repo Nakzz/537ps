@@ -48,31 +48,35 @@ int main(int argc, char** argv){
 			// TODO: implement for all processes of the current user (and only of the current user)
         	// find current user
         	// for all processes for current user, create pid and add to list
-				char ** allUserPID[1000];
-	size = _getAllUserOwnedPID(allUserPID);
+				char * allUserPID[1000];
+				size = _getAllUserOwnedPID(allUserPID);
 
-	printf("%d \n", size);
+				printf("%d \n", size);
 
 	// for(int *i= allUserPID; *i; i++ ){
 	// 	printf("%s \n", i);
 	// }
 			pidList = malloc(sizeof( struct pid *) * size);
+			if(pidList == NULL){
+					printf("%s\n", "Error: Bad Malloc");
+					exit(-1);
+				}
 			for(int i=0; i<size; i++){
 				pidList[i] = create_pid((allUserPID[i]));
 				// printf("pointer: %d \n", pidList[i]);
 				if(pidList[i] != NULL){
-				pidList[i]->flag_s = sFlag;
-				pidList[i]->flag_U = UFlag;
-				pidList[i]->flag_c = cFlag;
-				pidList[i]->flag_v = vFlag;
-				pidList[i]->flag_S = SFlag;
-			}
+					pidList[i]->flag_s = sFlag;
+					pidList[i]->flag_U = UFlag;
+					pidList[i]->flag_c = cFlag;
+					pidList[i]->flag_v = vFlag;
+					pidList[i]->flag_S = SFlag;
+				}
 
+			}
 		}else{	
 				pidList = malloc(sizeof( struct pid *) * size);
 				if(pidList == NULL){
-					printf("%s","%i\n" "errno: ", errno);
-					fprintf(stderr, "Error: %s\n", strerror( errno ));
+					printf("%s\n", "Error: Bad Malloc");
 					exit(-1);
 				}
 
@@ -93,6 +97,7 @@ for(int i=0; i<size; i++){
 		if(pidList[i] != NULL){
 // printf("pointer: %d \n", pidList[i]);
 	}
+}
 		exit(0);
 }
 
@@ -184,20 +189,17 @@ sscanf (line,"%s %s",temp, subbuff);
 
     }
     pclose(cmd);
-
     // pclose(cmd);
 						}
-	
 		}
-	}
-
 	// 	for(int i= 0; allUserPID[i] != NULL; i++ ){
 	// 	printf("%s \n", allUserPID[i]);
 	// }
 
-	return size;
+		return size;
+	}
 
-}
+
 
 int _isAllDigit(char *s)
 {

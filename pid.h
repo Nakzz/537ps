@@ -50,5 +50,6 @@ void freePID(struct pid list[]);	//destructor
 	
 int _pid_exists(char* pid);
 void _getFieldfromStat(char* p, int stat_index, char * result);
+void _appendChar(char *array, char c);
 
 #endif

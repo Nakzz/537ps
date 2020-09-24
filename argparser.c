@@ -17,8 +17,7 @@ node** argParser(int argc, char **argv){
 	int lastc = -1;
 	node **options = malloc(sizeof(node*) * (argc-1));
 	if(options == NULL){
-		printf("%s","%i\n" "errno: ", errno);
-		fprintf(stderr, "Error: %s\n", strerror( errno ));
+		printf("%s\n", "Error: Bad Malloc");
 		exit(-1);
 	}
 
@@ -27,8 +26,7 @@ node** argParser(int argc, char **argv){
 		options[i] = malloc(sizeof(node));
 
 		if(options[i] == NULL){
-			printf("%s","%i\n" "errno: ", errno);
-			fprintf(stderr, "Error: %s\n", strerror( errno ));
+			printf("%s\n", "Error: Bad Malloc");
 			exit(-1);
 		}else{
 			options[i]->c = '0';
