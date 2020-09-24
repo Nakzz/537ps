@@ -159,6 +159,8 @@ void get_flag_s(struct pid p, char * result)
     {
         //call the helper method
          _getFieldfromStat(p.id, 3, result); ///proc/[pid]/stat (3) state  %c
+         printf(" ");
+
     }
 
 }
@@ -175,8 +177,11 @@ void get_flag_S(struct pid p, char * result)
     if (p.flag_S)
     {
         //call the helper method
-        strcpy(result, "stime: ");
+        // strcpy(result, "stime: ");
+         printf("%s", "stime: ");
+
         _getFieldfromStat(p.id, 15, result); // /proc/[pid]/stat (15) stime  %lu
+         printf(" ");
     
     }
 }
@@ -194,8 +199,12 @@ void get_flag_U(struct pid p, char * result)
     {
 
         //call the helper method
-        strcpy(result, "utime: ");
+        // strcpy(result, "utime: ");
+         printf("%s", "utime: ");
+
         _getFieldfromStat(p.id, 14, result);
+         printf(" ");
+
     }
 
     // return "";
@@ -266,6 +275,7 @@ void get_flag_v(struct pid p, char * result)
         
         /* Done with this file, close file to release resource */
         fclose(fPtr);
+         printf(" ");
 
     }
 
