@@ -93,7 +93,7 @@ void printPID(struct pid p)
         get_flag_c(p, result_c); 
         // get_flag_m(p, result_m);
 
-     printf("%s: %s %s %s %s %s %s\n", p.id,  result_s, result_U, result_S, result_v, result_c);
+     printf("%s: %s %s %s %s %s \n", p.id,  result_s, result_U, result_S, result_v, result_c);
 
      free(result_s);
      free(result_U);
