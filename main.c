@@ -119,7 +119,8 @@ int main(int argc, char **argv)
 			printPID(*pidList[i]);
 		}
 	}
-	for (int i = 0; i < size; i++)
+
+	for (int i = 0; i < argc; i++)
 	{
 		free(arguments[i]);
 	}
