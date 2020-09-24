@@ -152,33 +152,36 @@ char pathExist[20];
     if (cmd == NULL) {
         perror("popen");
     }
-    while (fgets(result, sizeof(result), cmd)) {
-
-char subbuff[5];
-memcpy( subbuff, &result[5], 4 ); // hoping that all UID can only be 4 characters long
-subbuff[4] = '\0';
-
-        //printf("     %s %c \n", subbuff, subbuff[0]);
-
-		char snum[5];
-
-// convert 123 to string [buf]
-		sprintf(snum, "%d", getuid());
-
-        // printf("    comparing: %s and %s \n", subbuff, snum);
+	
+char *line = NULL;
+    size_t len = 0;
 
 
-		if(subbuff[0] == '0'){
+    while (getline(&line, &len, cmd) != -1) {
 
-			 if (snum[0] ==subbuff[0]){
-	//ADD TO SOME LIST
-			allUserPID[size++] = dp->d_name;
-        // printf("    adding %s \n", dp->d_name);
-			 }
+
+char subbuff[10];
+char temp[10];
+
+
+sscanf (line,"%s %s",temp, subbuff);
+
+    // printf (" splits: %s %s\n",temp, subbuff);
+
+		char snum[10];
+		sprintf(snum, "%d", getuid());  // convert 123 to string [buf]
+		
+	// 	if(subbuff[0] == '0'){ //for root user
+
+	// 		 if (snum[0] ==subbuff[0]){
+	// //ADD TO SOME LIST
+	// 		allUserPID[size++] = dp->d_name;
+    //     // printf("    adding %s \n", dp->d_name);
+	// 		 }
 
 		
 
-		}
+	// 	}
 
 
 		if(strcmp(subbuff, snum)==0){
@@ -190,7 +193,7 @@ subbuff[4] = '\0';
 
 
     }
-    pclose(cmd);
+    // pclose(cmd);
 						}
 	
 		}
